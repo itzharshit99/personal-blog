@@ -2,9 +2,20 @@ const express = require("express");
 const Blog = require("../models/blog.model.js");
 const router = express.Router();
 //get all blogs
-router.get("/", (req, res) => {
-  res.send("blog routes");
+router.get("/", async(req, res) => {
+  try {
+    const post = await Blog.find();
+    res.status(200).send({
+      message:"All post fetched",
+      posts:post
+    })
+    
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    res.status(500).send({ message: "error fetching post" });
+  }
 });
+//create a blog post and saving it in db
 router.post("/create-post", async (req,res) => {
   try {
     //all data comming in res --> console.log(req.body);
