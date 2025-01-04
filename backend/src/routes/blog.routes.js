@@ -4,7 +4,21 @@ const router = express.Router();
 //get all blogs
 router.get("/", async(req, res) => {
   try {
-    const post = await Blog.find();
+    //search functionality
+    const {search} = req.query;
+    console.log(search);
+    let query = {}
+    if(search){
+      query={
+        ...query,
+        $or:[
+          {title:{$regex:search,$options:"i"}},
+          {content:{$regex:search,$options:"i"}},
+        ]
+      }
+    }
+    //all blog functionality
+    const post = await Blog.find(query);
     res.status(200).send({
       message:"All post fetched",
       posts:post
