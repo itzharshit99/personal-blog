@@ -1,24 +1,25 @@
 const mongoose = require("mongoose");
-const { comment } = require("postcss");
+
 const CommentSchema = new mongoose.Schema({
   comment: {
-    type: String
+    type: String,
+    required: true, // Optional but recommended for clarity
   },
   user: {
-    type: mongoose.Schema.type.ObjectId,
-    ref:"User",
-    required:true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
-  postId:{
-    type:mongoose.Schema.type.ObjectId,
-    ref:"Blog",
-    required:true
+  postId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Blog",
+    required: true,
   },
-  createdAt:{
-    type:Date,
-    default:Date.now
-  }
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const Comment = mongoose.model("Comment",CommentSchema);
+const Comment = mongoose.model("Comment", CommentSchema);
 module.exports = Comment;

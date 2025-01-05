@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 //routes
 const blogRoutes = require("./src/routes/blog.routes.js")
+const commentRoutes = require("./src/routes/comment.routes.js")
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -12,6 +13,7 @@ app.use(cors());
 
 //calling routes
 app.use("/api/blogs",blogRoutes);
+app.use("/api/comments",commentRoutes);
 
 //mongodb connection
 async function main() {
