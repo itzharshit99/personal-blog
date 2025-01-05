@@ -1,5 +1,6 @@
 const express = require("express");
 const Blog = require("../models/blog.model.js");
+const Comment = require("../models/comment.model.js");
 const router = express.Router();
 //get all blogs
 router.get("/", async(req, res) => {
@@ -68,6 +69,7 @@ router.get("/:id",async(req,res)=>{
     if(!post){
       return res.status(404).send({message:"Post not found"})
     }
+    const comment = await Comment.find({postId}).populate('user',"username email")
     res.status(200).send({
       message:"Post retrieved Successfully",
       post:post
@@ -106,6 +108,8 @@ router.delete("/:id",async(req,res)=>{
     if(!post){
       return res.status(404).send({message:"post not found"});
     }
+    //delete comments
+    await Comment.deleteMany({postId})
     return res.status(200).send({
       message:"Post deleted successfully",
       post:post
