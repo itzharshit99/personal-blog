@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/user.model.js');
+const generateToken = require('../middleware/generateToken.js');
 const router = express.Router();
 
 //register user
@@ -29,7 +30,14 @@ router.post("/login",async (req,res)=>{
     if(!isMatch){
       return res.status(401).send({message:"invalid credentials"})
     }
-    res.status(200).send({message:"login successfully",user:{
+    //geenrate token
+    const token = await generateToken(user._id);
+    res.cookie("token",token,{
+      httpOnly:true,
+      secure:true,
+      sameSite:true
+    });
+    res.status(200).send({message:"login successfully",token,user:{
       id: user._id,
       email:user.email,
       username:user.username,
@@ -41,5 +49,14 @@ router.post("/login",async (req,res)=>{
     res.status(500).send({message:"login failed"})
   }
 
+})
+router.post("/logout",async(req,res)=>{
+  try {
+    res.clearCookie('token');
+    res.status(200).send({message:'log-out successfull'})
+  } catch (error) {
+    console.error("failed to logout:",error);
+    res.status(500).send({message:"logout failed"})
+  }
 })
 module.exports = router;
