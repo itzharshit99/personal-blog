@@ -31,7 +31,7 @@ router.get("/", async(req, res) => {
       }
     }
     //all blog functionality
-    const post = await Blog.find(query).sort({createdAt:-1});
+    const post = await Blog.find(query).populate('author','email').sort({createdAt:-1});
     res.status(200).send({
       message:"All post fetched",
       posts:post
