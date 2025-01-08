@@ -59,4 +59,15 @@ router.post("/logout",async(req,res)=>{
     res.status(500).send({message:"logout failed"})
   }
 })
+//get all user
+router.get("/users",async(req,res)=>{
+  try {
+    const users = await User.find({},'id email role');
+    res.status(200).send({message:"Users found successfully",users});
+    
+  } catch (error) {
+    console.error("failed to fetch all users:",error);
+    res.status(500).send({message:"failed to fetch all usersconst"})
+  }
+})
 module.exports = router;
