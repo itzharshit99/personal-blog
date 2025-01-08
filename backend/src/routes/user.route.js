@@ -84,4 +84,23 @@ router.delete("/users/:id",async(req,res)=>{
     res.status(500).send({message:"failed to delete users"})
   }
 })
+//update user role
+router.put("/users/:id",async(req,res)=>{
+  try {
+    const {id} = req.params;
+    const {role} = req.body;
+    const user = await User.findByIdAndUpdate(id,{role},{new:true});
+    if(!user){
+      return res.status(404).send({message:"user not found"});
+    }
+    res.status(200).send({message:"user role updated successfully",user});
+    
+  } catch (error) {
+    console.error("failed to update user role:",error);
+    res.status(500).send({message:"failed to update user role"})
+  }
+})
+
+
+
 module.exports = router;
