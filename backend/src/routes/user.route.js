@@ -67,7 +67,21 @@ router.get("/users",async(req,res)=>{
     
   } catch (error) {
     console.error("failed to fetch all users:",error);
-    res.status(500).send({message:"failed to fetch all usersconst"})
+    res.status(500).send({message:"failed to fetch all users"})
+  }
+})
+//delete user
+router.delete("/users/:id",async(req,res)=>{
+  try {
+    const {id} = req.params;
+    const user = await User.findByIdAndDelete(id);
+    if(!user){
+      return res.status(404).send({message:"user not found"});
+    }
+    res.status(200).send({message:"user succefully deleted"});
+  } catch (error) {
+    console.error("failed to delete users:",error);
+    res.status(500).send({message:"failed to delete users"})
   }
 })
 module.exports = router;
