@@ -1,7 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
-
 const App = () => {
   return (
     <>
@@ -13,7 +12,6 @@ const App = () => {
       </div>
       <footer className='mt-auto'>Footer</footer>
     </div>
-    
     </>
   )
 }
