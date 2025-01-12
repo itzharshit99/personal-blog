@@ -4,13 +4,13 @@ import { Outlet } from 'react-router-dom'
 const App = () => {
   return (
     <>
-    <div>
+    <div className='bg-bgPrimary min-h-screen flex flex-col'>
       <nav>Navbar</nav>
-      <div>
+      <div className='flex-grow'>
       {/* to render all children components */}
         <Outlet/> 
       </div>
-      <footer>Footer</footer>
+      <footer className='mt-auto'>Footer</footer>
     </div>
     
     </>
