@@ -1,8 +1,19 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const App = () => {
   return (
-    <div>App</div>
+    <>
+    <div>
+      <nav>Navbar</nav>
+      <div>
+      {/* to render all children components */}
+        <Outlet/> 
+      </div>
+      <footer>Footer</footer>
+    </div>
+    
+    </>
   )
 }
 
