@@ -2,6 +2,7 @@ const express = require("express");
 const Blog = require("../models/blog.model.js");
 const Comment = require("../models/comment.model.js");
 const verifyToken = require("../middleware/verifyToken.js");
+const isAdmin = require("../middleware/isAdmin.js");
 const router = express.Router();
 //get all blogs
 router.get("/", async(req, res) => {
@@ -44,11 +45,11 @@ router.get("/", async(req, res) => {
   }
 });
 //create a blog post and saving it in db
-router.post("/create-post",verifyToken, async (req,res) => {
+router.post("/create-post",verifyToken, isAdmin, async (req,res) => {
   try {
     //all data comming in res --> console.log(req.body);
     //saving data in db
-    const newPost = new Blog({...req.body});
+    const newPost = new Blog({...req.body,author:req.userId});
     await newPost.save();
     res.status(201).send({
       message:"post created successfully",
