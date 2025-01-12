@@ -44,7 +44,7 @@ router.get("/", async(req, res) => {
   }
 });
 //create a blog post and saving it in db
-router.post("/create-post", async (req,res) => {
+router.post("/create-post",verifyToken, async (req,res) => {
   try {
     //all data comming in res --> console.log(req.body);
     //saving data in db
@@ -62,7 +62,7 @@ router.post("/create-post", async (req,res) => {
   }
 });
 //get single blog by id
-router.get("/:id", verifyToken ,async(req,res)=>{
+router.get("/:id" ,async(req,res)=>{
   try {
     // console.log(req.params.id);
     const postId = req.params.id;
@@ -86,7 +86,7 @@ router.get("/:id", verifyToken ,async(req,res)=>{
 })
 
 //update a blog
-router.patch("/update-post/:id",async(req,res)=>{
+router.patch("/update-post/:id",verifyToken,async(req,res)=>{
   try {
     const postId = req.params.id;
     const updatedPost = await Blog.findByIdAndUpdate(postId,{
@@ -105,7 +105,7 @@ router.patch("/update-post/:id",async(req,res)=>{
     
   }
 })
-router.delete("/:id",async(req,res)=>{
+router.delete("/:id",verifyToken,async(req,res)=>{
   try {
     const postId = req.params.id;
     const post = await Blog.findByIdAndDelete(postId)
@@ -126,7 +126,7 @@ router.delete("/:id",async(req,res)=>{
 })
 
 //get related blogs
-router.get("/related/:id",async(req,res)=>{
+router.get("/related/:id",verifyToken,async(req,res)=>{
   try {
     const {id} = req.params;
     if(!id){
