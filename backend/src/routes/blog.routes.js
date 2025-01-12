@@ -1,6 +1,7 @@
 const express = require("express");
 const Blog = require("../models/blog.model.js");
 const Comment = require("../models/comment.model.js");
+const verifyToken = require("../middleware/verifyToken.js");
 const router = express.Router();
 //get all blogs
 router.get("/", async(req, res) => {
@@ -61,11 +62,14 @@ router.post("/create-post", async (req,res) => {
   }
 });
 //get single blog by id
-router.get("/:id",async(req,res)=>{
+router.get("/:id", verifyToken ,async(req,res)=>{
   try {
     // console.log(req.params.id);
     const postId = req.params.id;
+    console.log(postId);
     const post = await Blog.findById(postId);
+    
+    
     if(!post){
       return res.status(404).send({message:"Post not found"})
     }
