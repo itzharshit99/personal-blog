@@ -1,8 +1,13 @@
 import React from 'react'
+import Hero from './Hero.jsx'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className='bg-white text-primary container mx-auto mt-8 p-8'>
+      <Hero/>
+      <div>Blogs</div>
+
+    </div>
   )
 }
 
