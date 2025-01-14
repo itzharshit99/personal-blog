@@ -4,6 +4,7 @@ import Home from "../pages/Home.jsx";
 import About from "../pages/About.jsx";
 import ContactUs from "../pages/ContactUs.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
+import SingleBlog from "../pages/SingleBlog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path:"/privacy-policy",
         element:<PrivacyPolicy/>
+      },
+      {
+        path:"blogs/:id",
+        element:<SingleBlog/>
       }
     ]
   }
