@@ -10,7 +10,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 //parse options -- middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin:'http://localhost:5173',
+  credentials:true
+}));
 
 //calling routes
 app.use("/api/auth",userRoutes)
