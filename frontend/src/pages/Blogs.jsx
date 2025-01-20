@@ -1,5 +1,5 @@
 import React from "react";
-import SearchBlog from "./SearchBlog";
+import SearchBlog from "./SearchBlog.jsx";
 import { useState } from "react";
 import { useFetchBlogsQuery } from "../redux/features/blogs/blogsApi";
 import { Link } from "react-router-dom";
@@ -20,7 +20,7 @@ const Blogs = () => {
       <SearchBlog
         search={search}
         handleSearchChange={handleSearchChange}
-        handleSearch={handleSearchChange}
+        handleSearch={handleSearch}
       />
       {isLoading && <div>loading...</div>}
       {error && <div>{error.toString()}</div>}
