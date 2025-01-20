@@ -1,6 +1,7 @@
 import React from 'react'
 import commentorIcon from "../assets/commentor.png";
 import { formateDate } from '../utils/formateDate';
+import PostAComment from './PostAComment';
 const CommentCard = ({comments}) => {
   return (
     <div className='my-6 bg-white p-8'>
@@ -29,9 +30,7 @@ const CommentCard = ({comments}) => {
       </div>
 
       
-      <div>
-
-      </div>
+      <PostAComment/>
     </div>
   )
 }
