@@ -36,11 +36,12 @@
 
 // export default RelatedBlog;
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useFetchRelatedBlogsQuery } from "../redux/features/blogs/blogsApi.js";
 
 const RelatedBlog = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Hook for programmatic navigation
   const { data: blogs = [], error, isLoading } = useFetchRelatedBlogsQuery(id);
 
   if (isLoading) {
@@ -60,10 +61,10 @@ const RelatedBlog = () => {
       ) : (
         <div className="space-y-4 mt-5">
           {blogs.map((blog) => (
-            <Link
-              to={`/blogs/${blog?._id}`}
+            <div
               key={blog?._id}
-              className="flex flex-col sm:flex-row sm:items-center gap-4 shadow-sm px-8 py-4"
+              onClick={() => navigate(`/blogs/${blog?._id}`)} // Redirect programmatically
+              className="cursor-pointer flex flex-col sm:flex-row sm:items-center gap-4 shadow-sm px-8 py-4 hover:shadow-md transition-shadow duration-300"
             >
               <div className="size-14">
                 <img
@@ -78,7 +79,7 @@ const RelatedBlog = () => {
                 </h4>
                 <p>{blog?.description?.substring(0, 50)}...</p>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}
@@ -87,3 +88,4 @@ const RelatedBlog = () => {
 };
 
 export default RelatedBlog;
+
