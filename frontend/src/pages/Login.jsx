@@ -7,7 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [message,setMessage] =  useState("");
   return (
-    <div className="max-w-sm bg-white mx-auto p-8 mt-36">
+    <div className="max-w-sm bg-white mx-auto p-8 mt-20">
       <h2 className="text-2xl font-semibold pt-5">Please Login</h2>
       <form className="space-y-5 max-w-sm mx-auto pt-8">
         <input
