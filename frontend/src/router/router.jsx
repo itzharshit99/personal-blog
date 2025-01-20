@@ -5,33 +5,43 @@ import About from "../pages/About.jsx";
 import ContactUs from "../pages/ContactUs.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
 import SingleBlog from "../pages/SingleBlog.jsx";
+import Login from "../pages/Login.jsx";
+import Register from "../pages/Register.jsx";
 
 const router = createBrowserRouter([
   {
-    path:"/",
-    element:<App/>,
-    children:[
+    path: "/",
+    element: <App />,
+    children: [
       {
-        path:"/",
-        element:<Home/>
+        path: "/",
+        element: <Home />,
       },
       {
-        path:"/about-us",
-        element:<About/>
+        path: "/about-us",
+        element: <About />,
       },
       {
-        path:"/contact",
-        element:<ContactUs/>
+        path: "/contact",
+        element: <ContactUs />,
       },
       {
-        path:"/privacy-policy",
-        element:<PrivacyPolicy/>
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
       },
       {
-        path:"blogs/:id",
-        element:<SingleBlog/>
-      }
-    ]
-  }
+        path: "blogs/:id",
+        element: <SingleBlog />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+    ],
+  },
 ]);
 export default router;
