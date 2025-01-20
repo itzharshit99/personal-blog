@@ -124,7 +124,7 @@ router.delete("/:id",verifyToken,async(req,res)=>{
 })
 
 //get related blogs
-router.get("/related/:id",verifyToken,async(req,res)=>{
+router.get("/related/:id",async(req,res)=>{
   try {
     const {id} = req.params;
     if(!id){
@@ -140,7 +140,7 @@ router.get("/related/:id",verifyToken,async(req,res)=>{
       title:{$regex:titleRegex}
     }
     const relatedPost = await Blog.find(relatedQuery);
-    res.status(200).send({message:"related post found",post:relatedPost})
+    res.status(200).send(relatedPost)
 
 
     
