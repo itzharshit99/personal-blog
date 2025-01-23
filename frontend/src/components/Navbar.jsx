@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import avatarImg from "../assets/commentor.png"
 import { useLogoutUserMutation } from "../redux/features/auth/authApi";
 import { logout } from "../redux/features/auth/authSlice";
+import logoimg from "../assets/logoipsum-296.svg";
 const navList = [
   { name: "Home", path: "/" },
   { name: "About us", path: "/about-us" },
@@ -36,7 +37,7 @@ const Navbar = () => {
     <header className="bg-white py-6 border">
       <nav className="container mx-auto flex justify-between px-5">
         <a href="/">
-          <img src="/logo.svg" alt="" />
+          <img src={logoimg} alt="" />
         </a>
         <ul className="sm:flex hidden items-center gap-8">
           {navList.map((list, index) => (

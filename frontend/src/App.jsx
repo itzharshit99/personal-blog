@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Footer from './pages/Footer'
 const App = () => {
   return (
     <>
@@ -10,7 +11,7 @@ const App = () => {
       {/* to render all children components */}
         <Outlet/> 
       </div>
-      <footer className='mt-auto'>Footer</footer>
+      <footer className='mt-auto'><Footer/></footer>
     </div>
     </>
   )
