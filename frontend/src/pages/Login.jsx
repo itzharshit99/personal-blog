@@ -1,30 +1,42 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../redux/features/auth/authApi";
+import { useDispatch } from "react-redux"; // Import useDispatch
+import { setUser } from "../redux/features/auth/authSlice"; // Import setUser action
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [loginUser,{isLoading:loginLoading}] = useLoginUserMutation()
+  const [loginUser, { isLoading: loginLoading }] = useLoginUserMutation();
+  const dispatch = useDispatch(); // Initialize useDispatch
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const data = {
       email,
       password,
     };
+
     try {
+      // Call the login API
       const response = await loginUser(data).unwrap();
-      const {token,user} = response;
-      alert("Login Successfully")
-      navigate("/")
-      
+      const { token, user } = response;
+
+      // Dispatch setUser action to save user in Redux store
+      dispatch(setUser(user));
+
+      // Optionally save the token in localStorage for persistence
+      localStorage.setItem("token", token);
+
+      alert("Login Successfully");
+      navigate("/"); // Redirect after login
     } catch (error) {
-      setMessage("Please provide a valid email and password")
+      setMessage("Please provide a valid email and password");
     }
   };
+
   return (
     <div className="max-w-sm bg-white mx-auto p-8 mt-20">
       <h2 className="text-2xl font-semibold pt-5">Please Login</h2>
@@ -35,9 +47,7 @@ const Login = () => {
           type="text"
           value={email}
           required
-          name=""
-          id=""
-          onChange={(e)=> setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           className="w-full bg-bgPrimary focus:outline-none px-5 py-3"
@@ -45,19 +55,20 @@ const Login = () => {
           type="password"
           value={password}
           required
-          name=""
-          id=""
-          onChange={(e)=> setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         {message && <p className="text-red">{message}</p>}
-        <button disabled={loginLoading} className="w-full bg-primary mt-5 hover:bg-indigo-500 text-white font-medium py-3 rounded-md">
-          Login
+        <button
+          disabled={loginLoading}
+          className="w-full bg-primary mt-5 hover:bg-indigo-500 text-white font-medium py-3 rounded-md"
+        >
+          {loginLoading ? "Logging in..." : "Login"}
         </button>
       </form>
       <p className="mt-5 text-center">
-        Dont have an Account ?{" "}
+        Don't have an Account?{" "}
         <Link className="text-red-900 italic" to="/register">
-          register
+          Register
         </Link>{" "}
         here.
       </p>

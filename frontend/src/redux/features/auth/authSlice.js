@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const loadUserFromLocalStorage = () => {
   try {
+    if (typeof localStorage === "undefined") {
+      return { user: null }; // Avoid errors in SSR environments
+    }
     const serializedState = localStorage.getItem("user");
     if (serializedState === null) {
       return { user: null };
@@ -21,11 +24,15 @@ const authSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem("user", JSON.stringify(state.user));
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem("user", JSON.stringify(state.user));
+      }
     },
     logout: (state) => {
       state.user = null;
-      localStorage.removeItem("user");
+      if (typeof localStorage !== "undefined") {
+        localStorage.removeItem("user");
+      }
     },
   },
 });
