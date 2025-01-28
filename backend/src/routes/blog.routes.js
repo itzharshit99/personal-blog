@@ -71,10 +71,9 @@ router.get("/:id" ,async(req,res)=>{
     if(!post){
       return res.status(404).send({message:"Post not found"})
     }
-    const comment = await Comment.find({postId}).populate('user',"username email")
+    const comments = await Comment.find({postId}).populate('user',"username email")
     res.status(200).send({
-      message:"Post retrieved Successfully",
-      post:post
+      post,comments
     })
   } catch (error) {
     console.error("Error fetching in single post",error);

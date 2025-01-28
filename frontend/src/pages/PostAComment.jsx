@@ -26,7 +26,7 @@ const PostAComment = () => {
     };
     try {
       const response = await postComment(newComment).unwrap();
-      console.log("comment added successfully");
+      alert("comment added successfully");
       setComment('');
       refetch();
     } catch (error) {
